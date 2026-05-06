@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/DirectorioWebAutores">
+    <Resource name="jdbc/AuthorsDB" auth="Container" type="javax.sql.DataSource"
+              maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+              username="root" password="" driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/Authors?useSSL=false&amp;serverTimezone=UTC"/>
+</Context>

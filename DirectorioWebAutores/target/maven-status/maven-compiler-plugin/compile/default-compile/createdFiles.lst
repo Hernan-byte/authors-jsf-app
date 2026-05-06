@@ -1,0 +1,6 @@
+com\directorio\model\LiteraryGenre.class
+com\directorio\model\LiteraryGenreModel.class
+com\mycompany\directoriowebautores\resources\JakartaEE8Resource.class
+com\directorio\model\AuthorModel.class
+com\directorio\model\Author.class
+com\mycompany\directoriowebautores\JakartaRestConfiguration.class
