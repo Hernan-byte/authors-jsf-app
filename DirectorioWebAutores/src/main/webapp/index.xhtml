@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<<<<<<< HEAD
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <title>Directorio de Autores</title>
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="estilos.css" />
+    </h:head>
+
+    <h:body>
+        <div class="container">
+            <h1 class="titulo-principal">Directorio de Autores</h1>
+
+            <!-- ===== FORMULARIO ===== -->
+            <div class="panel panel-default panel-custom">
+                <div class="panel-heading panel-heading-custom">FORMULARIO DE AUTORES</div>
+                <div class="panel-body">
+                    <h:form id="formRegistro">
+
+                        <div class="form-group">
+                            <h:outputLabel value="Nombre del Autor:" />
+                            <h:inputText value="#{authorBean.author.name}"
+                                         styleClass="form-control"
+                                         pt:placeholder="Nombre" required="true"
+                                         requiredMessage="El nombre es obligatorio." />
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel value="Fecha de Nacimiento" />
+                            <h:inputText value="#{authorBean.author.birthDate}"
+                                         styleClass="form-control"
+                                        pt:placeholder="dd/MM/yyyy" required="true"
+                                         requiredMessage="La fecha de nacimiento es obligatoria.">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:inputText>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel value="Teléfono" />
+                            <!-- Validador de teléfonos salvadoreños -->
+                            <h:inputText value="#{authorBean.author.phone}"
+                                         styleClass="form-control"
+                                         pt:placeholder="Ej: 2250-5555">
+                                <f:validator validatorId="svPhoneValidator" />
+                            </h:inputText>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel value="Género Literario" />
+                            <h:selectOneMenu value="#{authorBean.author.genre.id}"
+                                             styleClass="form-control">
+                                <f:selectItem itemLabel="-- Seleccione --" itemValue="" />
+                                <f:selectItems value="#{literaryGenreBean.listaGeneros}"
+                                               var="g"
+                                               itemLabel="#{g.name}"
+                                               itemValue="#{g.id}" />
+                            </h:selectOneMenu>
+                        </div>
+
+                        <div class="text-center">
+                            <h:commandButton value="AGREGAR"
+                                             action="#{authorBean.guardar}"
+                                             styleClass="btn-dark-custom">
+                                <f:ajax execute="@form" render="formTabla msgsValidacion" />
+                            </h:commandButton>
+                        </div>
+
+                        <div class="validaciones-seccion">
+                            <h:outputLabel value="Validaciones" />
+                            <h:panelGroup id="msgsValidacion" layout="block"
+                                          styleClass="validation-container">
+                                <h:messages globalOnly="false"
+                                            style="color:red; list-style:none;" />
+                            </h:panelGroup>
+                        </div>
+
+                    </h:form>
+                </div>
+            </div>
+
+            <!-- ===== TABLA ===== -->
+            <h:form id="formTabla">
+
+                <div class="row" style="margin-bottom: 10px;">
+                    <div class="col-xs-6">
+                        <h3 class="subtitulo-tabla">DIRECTORIO DE AUTORES</h3>
+                    </div>
+
+                    <!-- Filtro por género (6a - AJAX selectOneMenu) -->
+                    <div class="col-xs-4 text-right">
+                        <h:selectOneMenu value="#{authorBean.filtroGenero}"
+                                         styleClass="filtro-genero">
+                            <f:selectItem itemLabel="-- Género --" itemValue="0" />
+                            <f:selectItems value="#{literaryGenreBean.listaGeneros}"
+                                           var="g"
+                                           itemLabel="#{g.name}"
+                                           itemValue="#{g.id}" />
+                            <f:ajax render="tablaAutores contadorAutores" />
+                        </h:selectOneMenu>
+                    </div>
+
+                    <!-- Filtro por nombre (6c - AJAX inputText) -->
+                    <div class="col-xs-2 text-right">
+                        <h:inputText value="#{authorBean.filtroNombre}"
+                                     styleClass="form-control"
+                                     pt:placeholder="Buscar nombre...">
+                            <f:ajax event="keyup" render="tablaAutores contadorAutores" />
+                        </h:inputText>
+                    </div>
+                </div>
+
+                <h:dataTable id="tablaAutores"
+                             value="#{authorBean.listaAutores}"
+                             var="item"
+                             styleClass="table table-bordered table-custom">
+
+                    <h:column>
+                        <f:facet name="header">ID Autor</f:facet>
+                        #{item.id}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Nombre Autor</f:facet>
+                        #{item.name}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Teléfono</f:facet>
+                        #{item.phone}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Fecha Nacimiento</f:facet>
+                        <h:outputText value="#{item.birthDate}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Género Literario</f:facet>
+                        #{item.genre.name}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Operaciones</f:facet>
+                        <div class="text-center">
+                            <h:commandButton value="EDITAR"
+                                             action="#{authorBean.editar(item)}"
+                                             styleClass="btn-op">
+                                <f:ajax render=":formRegistro" />
+                            </h:commandButton>
+                            <h:commandButton value="BORRAR"
+                                             action="#{authorBean.eliminar(item.id)}"
+                                             styleClass="btn-op">
+                                <f:ajax render="tablaAutores contadorAutores" />
+                            </h:commandButton>
+                        </div>
+                    </h:column>
+
+                </h:dataTable>
+
+                <!-- Contador de autores (6b - botón CONTAR) -->
+                <div class="text-right" style="margin-top:10px;">
+                    <h:outputText id="contadorAutores"
+                                  value="Número de autores: #{authorBean.listaAutores.size()}"
+                                  styleClass="footer-text" />
+                    <h:commandButton value="CONTAR" styleClass="btn-dark-custom">
+                        <f:ajax render="contadorAutores" />
+                    </h:commandButton>
+                </div>
+
+            </h:form>
+        </div>
+=======
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        Hello from Facelets
+>>>>>>> cb6031fa78be5efa5577eff92ef1992106d11635
+    </h:body>
+</html>
