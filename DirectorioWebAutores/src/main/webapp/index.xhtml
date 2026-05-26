@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<<<<<<< HEAD
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -18,7 +17,6 @@
         <div class="container">
             <h1 class="titulo-principal">Directorio de Autores</h1>
 
-            <!-- ===== FORMULARIO ===== -->
             <div class="panel panel-default panel-custom">
                 <div class="panel-heading panel-heading-custom">FORMULARIO DE AUTORES</div>
                 <div class="panel-body">
@@ -28,7 +26,8 @@
                             <h:outputLabel value="Nombre del Autor:" />
                             <h:inputText value="#{authorBean.author.name}"
                                          styleClass="form-control"
-                                         pt:placeholder="Nombre" required="true"
+                                         pt:placeholder="Nombre"
+                                         required="true"
                                          requiredMessage="El nombre es obligatorio." />
                         </div>
 
@@ -36,7 +35,8 @@
                             <h:outputLabel value="Fecha de Nacimiento" />
                             <h:inputText value="#{authorBean.author.birthDate}"
                                          styleClass="form-control"
-                                        pt:placeholder="dd/MM/yyyy" required="true"
+                                         pt:placeholder="dd/MM/yyyy"
+                                         required="true"
                                          requiredMessage="La fecha de nacimiento es obligatoria.">
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:inputText>
@@ -44,7 +44,6 @@
 
                         <div class="form-group">
                             <h:outputLabel value="Teléfono" />
-                            <!-- Validador de teléfonos salvadoreños -->
                             <h:inputText value="#{authorBean.author.phone}"
                                          styleClass="form-control"
                                          pt:placeholder="Ej: 2250-5555">
@@ -85,15 +84,12 @@
                 </div>
             </div>
 
-            <!-- ===== TABLA ===== -->
             <h:form id="formTabla">
 
                 <div class="row" style="margin-bottom: 10px;">
                     <div class="col-xs-6">
                         <h3 class="subtitulo-tabla">DIRECTORIO DE AUTORES</h3>
                     </div>
-
-                    <!-- Filtro por género (6a - AJAX selectOneMenu) -->
                     <div class="col-xs-4 text-right">
                         <h:selectOneMenu value="#{authorBean.filtroGenero}"
                                          styleClass="filtro-genero">
@@ -105,8 +101,6 @@
                             <f:ajax render="tablaAutores contadorAutores" />
                         </h:selectOneMenu>
                     </div>
-
-                    <!-- Filtro por nombre (6c - AJAX inputText) -->
                     <div class="col-xs-2 text-right">
                         <h:inputText value="#{authorBean.filtroNombre}"
                                      styleClass="form-control"
@@ -166,7 +160,6 @@
 
                 </h:dataTable>
 
-                <!-- Contador de autores (6b - botón CONTAR) -->
                 <div class="text-right" style="margin-top:10px;">
                     <h:outputText id="contadorAutores"
                                   value="Número de autores: #{authorBean.listaAutores.size()}"
@@ -178,15 +171,5 @@
 
             </h:form>
         </div>
-=======
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
->>>>>>> cb6031fa78be5efa5577eff92ef1992106d11635
     </h:body>
 </html>

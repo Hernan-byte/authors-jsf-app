@@ -9,32 +9,17 @@ public class LiteraryGenre implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<<<<<<< HEAD
     @Column(name = "id")
-=======
->>>>>>> cb6031fa78be5efa5577eff92ef1992106d11635
     private Integer id;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    public LiteraryGenre() {
-    }
+    public LiteraryGenre() {}
 
-    // Getters y Setters
-    public Integer getId() {
-        return id;
-    }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 }
