@@ -46,7 +46,9 @@
                             <h:outputLabel value="Teléfono" />
                             <h:inputText value="#{authorBean.author.phone}"
                                          styleClass="form-control"
-                                         pt:placeholder="Ej: 2250-5555">
+                                         pt:placeholder="Ej: 2250-5555"
+                                         required="true"
+                                         requiredMessage="El teléfonoj es obligatorio.">
                                 <f:validator validatorId="svPhoneValidator" />
                             </h:inputText>
                         </div>
@@ -54,7 +56,8 @@
                         <div class="form-group">
                             <h:outputLabel value="Género Literario" />
                             <h:selectOneMenu value="#{authorBean.author.genre.id}"
-                                             styleClass="form-control">
+                                             styleClass="form-control" required="true"
+                                             requiredMessage="El género literario es obligatorio.">
                                 <f:selectItem itemLabel="-- Seleccione --" itemValue="" />
                                 <f:selectItems value="#{literaryGenreBean.listaGeneros}"
                                                var="g"
@@ -67,7 +70,7 @@
                             <h:commandButton value="AGREGAR"
                                              action="#{authorBean.guardar}"
                                              styleClass="btn-dark-custom">
-                                <f:ajax execute="@form" render="formTabla msgsValidacion" />
+                                <f:ajax execute="@form" render="formTabla msgsValidacion @form" />
                             </h:commandButton>
                         </div>
 
@@ -76,7 +79,14 @@
                             <h:panelGroup id="msgsValidacion" layout="block"
                                           styleClass="validation-container">
                                 <h:messages globalOnly="false"
-                                            style="color:red; list-style:none;" />
+                                            style="list-style:none;" 
+                                            styleClass="msg-lista"
+                                            showSummary="false" 
+                                            showDetail="true"
+                                            infoStyle="color: green;" 
+                                            warnStyle="color: orange;" 
+                                            errorStyle="color: red;"
+                                            fatalStyle="color: red;" />
                             </h:panelGroup>
                         </div>
 
@@ -115,31 +125,31 @@
                              var="item"
                              styleClass="table table-bordered table-custom">
 
-                    <h:column>
+                    <h:column class="text-center">
                         <f:facet name="header">ID Autor</f:facet>
-                        #{item.id}
+                            #{item.id}
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">Nombre Autor</f:facet>
-                        #{item.name}
+                            #{item.name}
                     </h:column>
 
-                    <h:column>
+                    <h:column class="text-center">
                         <f:facet name="header">Teléfono</f:facet>
-                        #{item.phone}
+                            #{item.phone}
                     </h:column>
 
-                    <h:column>
+                    <h:column class="text-center">
                         <f:facet name="header">Fecha Nacimiento</f:facet>
                         <h:outputText value="#{item.birthDate}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </h:column>
 
-                    <h:column>
+                    <h:column class="text-center">
                         <f:facet name="header">Género Literario</f:facet>
-                        #{item.genre.name}
+                            #{item.genre.name}
                     </h:column>
 
                     <h:column>
@@ -153,14 +163,14 @@
                             <h:commandButton value="BORRAR"
                                              action="#{authorBean.eliminar(item.id)}"
                                              styleClass="btn-op">
-                                <f:ajax render="tablaAutores contadorAutores" />
+                                <f:ajax execute="@this" render=":formTabla" />
                             </h:commandButton>
                         </div>
                     </h:column>
 
                 </h:dataTable>
 
-                <div class="text-right" style="margin-top:10px;">
+                <div class="text-right" style="margin-top:10px; margin-bottom: 30px;">
                     <h:outputText id="contadorAutores"
                                   value="Número de autores: #{authorBean.listaAutores.size()}"
                                   styleClass="footer-text" />
